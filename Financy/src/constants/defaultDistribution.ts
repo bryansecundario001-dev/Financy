@@ -1,7 +1,7 @@
 export const DEFAULT_DISTRIBUTION = [
-  { code: 'NECESIDADES', percentage: 75 },
-  { code: 'DIVERSION', percentage: 5 },
-  { code: 'AHORRO', percentage: 10 },
-  { code: 'INVERSION', percentage: 10 },
-  { code: 'DONATIVOS', percentage: 0 },
+  { name: 'Necesidades', percentage: 75 },
+  { name: 'Diversión', percentage: 5 },
+  { name: 'Ahorro', percentage: 10 },
+  { name: 'Inversión', percentage: 10 },
+  { name: 'Donativos', percentage: 0 },
 ];

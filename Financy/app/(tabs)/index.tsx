@@ -6,14 +6,11 @@ import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Link } from 'expo-router';
-import { init_database } from '../../src/db';
-import { useEffect } from 'react';
+
 
 export default function HomeScreen() {
 
-  useEffect(() => {
-    init_database();
-  }, []);
+
 
   return (
     <ParallaxScrollView
@@ -25,7 +22,7 @@ export default function HomeScreen() {
         />
       }>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome Bryan Tufiño!</ThemedText>
+        <ThemedText type="title">Welcome Bryan!</ThemedText>
         <HelloWave />
       </ThemedView>
       <ThemedView style={styles.stepContainer}>

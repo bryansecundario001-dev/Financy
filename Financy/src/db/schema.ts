@@ -21,8 +21,8 @@ export const create_tables = async () => {
     CREATE TABLE IF NOT EXISTS catalog (
       id_catalog INTEGER PRIMARY KEY AUTOINCREMENT,
       type TEXT NOT NULL,
-      code TEXT NOT NULL,
-      name TEXT NOT NULL,
+      code TEXT NOT NULL UNIQUE,
+      name TEXT NOT NULL UNIQUE,
       status TEXT NOT NULL,
       created_at TEXT NOT NULL
     );
@@ -34,7 +34,7 @@ export const create_tables = async () => {
   await db.execAsync(`
     CREATE TABLE IF NOT EXISTS distribution_category (
       id_distribution_category INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
+      name TEXT NOT NULL UNIQUE,
       display_order INTEGER,
       created_at TEXT NOT NULL,
       status TEXT NOT NULL
@@ -106,7 +106,7 @@ export const create_tables = async () => {
         CREATE TABLE IF NOT EXISTS consumption_category (
         id_consumption_category INTEGER PRIMARY KEY AUTOINCREMENT,
         distribution_category_id TEXT NOT NULL,
-        name TEXT NOT NULL,
+        name TEXT NOT NULL UNIQUE,
         status TEXT NOT NULL,
         created_at TEXT NOT NULL
         );

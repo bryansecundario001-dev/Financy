@@ -27,6 +27,7 @@ export const seed_database = async () => {
       ('Donativos', 5,'Activo', '${now}');
   `);
 
+
   await db.execAsync(`
   INSERT OR IGNORE INTO consumption_category
     (distribution_category_id, name, status, created_at)
