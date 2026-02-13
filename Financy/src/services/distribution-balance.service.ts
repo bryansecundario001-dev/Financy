@@ -1,4 +1,5 @@
 import { open_db } from '../db/db';
+import { insertDistributionBalances } from '../repositories/distribution-balance.repository';
 
 export type InitialBalanceInput = {
   distribution_category_id: number;
@@ -7,22 +8,27 @@ export type InitialBalanceInput = {
 
 export const saveInitialBalances = async (
   userId: number,
-  balances: InitialBalanceInput[]
+  data: { distribution_category_id: number; balance: number }[]
 ) => {
-  const db = await open_db();
-  const createdAt = new Date().toISOString();
 
-  await db.runAsync(
-    `DELETE FROM distribution_balance WHERE user_id = ?`,
+  const total = data.reduce((acc, item) => acc + item.balance, 0);
+
+  if (total <= 0) {
+    throw new Error('El saldo total debe ser mayor a 0');
+  }
+
+  await insertDistributionBalances(userId, data);
+};
+
+export const hasDistributionBalance = async (userId: number) => {
+  const db = await open_db();
+
+  const result = await db.getFirstAsync<{ count: number }>(
+    `SELECT COUNT(*) as count 
+     FROM distribution_balance
+     WHERE user_id = ?`,
     [userId]
   );
 
-  for (const item of balances) {
-    await db.runAsync(
-      `INSERT INTO distribution_balance
-       (user_id, distribution_category_id, balance, created_at, status)
-       VALUES (?, ?, ?, ?, ?)`,
-      [userId, item.distribution_category_id, item.balance, createdAt, 'Activo']
-    );
-  }
+  return (result?.count ?? 0) > 0;
 };

@@ -3,6 +3,9 @@ import { open_db } from './db';
 export const create_tables = async () => {
   const db = await open_db();
 
+  await db.execAsync(`delete from catalog;`);
+  await db.execAsync(`delete from consumption_category;`);
+  await db.execAsync(`delete from distribution_category;`);
   /* =======================
      USER
   ======================= */

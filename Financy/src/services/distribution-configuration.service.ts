@@ -49,3 +49,16 @@ export const saveDefaultDistribution = async (userId: number) => {
     );
   }
 };
+
+export const hasDistributionConfiguration = async (userId: number) => {
+  const db = await open_db();
+
+  const result = await db.getFirstAsync<{ count: number }>(
+    `SELECT COUNT(*) as count 
+     FROM distribution_configuration
+     WHERE user_id = ?`,
+    [userId]
+  );
+
+  return (result?.count ?? 0) > 0;
+};
